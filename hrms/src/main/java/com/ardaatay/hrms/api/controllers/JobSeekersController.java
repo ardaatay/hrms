@@ -9,30 +9,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ardaatay.hrms.business.abstracts.PositionService;
+import com.ardaatay.hrms.business.abstracts.JobSeekerService;
 import com.ardaatay.hrms.core.utilities.results.DataResult;
 import com.ardaatay.hrms.core.utilities.results.Result;
-import com.ardaatay.hrms.entities.concretes.Position;
+import com.ardaatay.hrms.entities.concretes.JobSeeker;
 
 @RestController
-@RequestMapping("/api/positions")
-public class PositionsController {
-
-	private PositionService positionService;
+@RequestMapping("/api/jobseekers")
+public class JobSeekersController {
+	
+	private JobSeekerService jobSeekerService;
 
 	@Autowired
-	public PositionsController(PositionService positionService) {
-		this.positionService = positionService;
+	public JobSeekersController(JobSeekerService jobSeekerService) {
+		this.jobSeekerService = jobSeekerService;
 	}
-
-	@GetMapping("/getall")
-	public DataResult<List<Position>> getAll() {
-		return this.positionService.getAll();
-	}
-
+	
 	@PostMapping("/add")
-	public Result add(@RequestBody Position position) {
-		return this.positionService.add(position);
+	public Result add(@RequestBody JobSeeker jobSeeker) {
+		return this.jobSeekerService.add(jobSeeker);
 	}
-
+	
+	@GetMapping("/getall")
+	public DataResult<List<JobSeeker>> getAll() {
+		return this.jobSeekerService.getAll();
+	}
 }
