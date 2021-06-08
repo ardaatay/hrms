@@ -13,6 +13,7 @@ import com.ardaatay.hrms.core.utilities.results.SuccessDataResult;
 import com.ardaatay.hrms.core.utilities.results.SuccessResult;
 import com.ardaatay.hrms.dataAccess.abstracts.PositionDao;
 import com.ardaatay.hrms.entities.concretes.Position;
+import com.ardaatay.hrms.entities.dtos.DropdownDto;
 
 @Service
 public class PositionManager implements PositionService {
@@ -38,6 +39,11 @@ public class PositionManager implements PositionService {
 
 		this.positionDao.save(position);
 		return new SuccessResult("Pozisyonlar eklendi");
+	}
+
+	@Override
+	public DataResult<List<DropdownDto>> getDropDown() {
+		return new SuccessDataResult<List<DropdownDto>>(this.positionDao.getDropdown(), "Data listelendi");
 	}
 
 }

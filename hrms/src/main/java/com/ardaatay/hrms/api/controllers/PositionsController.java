@@ -13,6 +13,7 @@ import com.ardaatay.hrms.business.abstracts.PositionService;
 import com.ardaatay.hrms.core.utilities.results.DataResult;
 import com.ardaatay.hrms.core.utilities.results.Result;
 import com.ardaatay.hrms.entities.concretes.Position;
+import com.ardaatay.hrms.entities.dtos.DropdownDto;
 
 @RestController
 @RequestMapping("/api/positions")
@@ -35,4 +36,8 @@ public class PositionsController {
 		return this.positionService.add(position);
 	}
 
+	@GetMapping("/getdropdown")
+	public DataResult<List<DropdownDto>> getDropdown() {
+		return this.positionService.getDropDown();
+	}
 }
