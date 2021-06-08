@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "job_advertisements")
 public class JobAdvertisement {
+	
 	@Id
 	@GeneratedValue
 	@Column(name = "job_advertisement_id")

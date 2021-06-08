@@ -1,7 +1,10 @@
 package com.ardaatay.hrms.entities.concretes;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -9,7 +12,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "job_seekers")
 public class JobSeeker extends User {
-
 	
 	@Column(name = "first_name")
 	@NotBlank
@@ -30,6 +32,21 @@ public class JobSeeker extends User {
 	@NotBlank
 	@NotNull
 	private int yearOfBirth;
+	
+	@Column(name = "image_url")
+	private String imageUrl;
+	
+	@Column(name = "github_url")
+	private String githubUrl;
+	
+	@Column(name = "linkedin_url")
+	private String linkedinUrl;
+	
+	@Column(name = "cover_letter")
+	private String coverLetter;
+	
+	@OneToMany(mappedBy = "jobSeeker")
+	private List<Resume> resumes; 
 
 	public JobSeeker() {
 	}

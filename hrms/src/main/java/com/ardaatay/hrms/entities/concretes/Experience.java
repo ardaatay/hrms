@@ -1,15 +1,12 @@
 package com.ardaatay.hrms.entities.concretes;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,18 +16,27 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "cities")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class City {
-
+@Table(name = "resume_experiences")
+public class Experience {
+	
 	@Id
 	@GeneratedValue
-	@Column(name = "city_id")
+	@Column(name = "experience_id")
 	private int id;
 
 	@Column(name = "name")
 	private String name;
+	
+	@Column(name = "position")
+	private String position;
 
-	@OneToMany(mappedBy = "city")
-	private List<JobAdvertisement> jobAdvertisements;
+	@Column(name = "start_year")
+	private int startYear;
+	
+	@Column(name = "finish_year")
+	private int finishYear;
+
+	@ManyToOne()
+	@JoinColumn(name = "resume_id")
+	private Resume resume;
 }
