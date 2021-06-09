@@ -30,8 +30,8 @@ public abstract class User {
 	@NotBlank
 	@NotNull
 	private String passwordSalt;
-	
-	@Column(name="activate")
+
+	@Column(name = "activate")
 	private Boolean activate;
 
 	public User() {

@@ -12,13 +12,13 @@ import com.ardaatay.hrms.entities.dtos.JobAdvertisementDto;
 
 public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Integer> {
 
-	@Query("Select new com.ardaatay.hrms.entities.dtos.JobAdvertisementDto(j.id,j.companyName,j.jobTitle,j.count,j.postedDate,j.lastDate) From JobAdvertisement j where activate=:activate")
+	@Query("Select new com.ardaatay.hrms.entities.dtos.JobAdvertisementDto(j.id,j.company,j.jobTitle,j.count,j.postedDate,j.lastDate) From JobAdvertisement j where activate=:activate")
 	List<JobAdvertisementDto> getJobAdvertisementByActivate(Boolean activate);
 
-	@Query("Select new com.ardaatay.hrms.entities.dtos.JobAdvertisementDto(j.id,j.companyName,j.jobTitle,j.count,j.postedDate,j.lastDate) From JobAdvertisement j where activate=:activate order by j.postedDate")
+	@Query("Select new com.ardaatay.hrms.entities.dtos.JobAdvertisementDto(j.id,j.company,j.jobTitle,j.count,j.postedDate,j.lastDate) From JobAdvertisement j where activate=:activate order by j.postedDate")
 	List<JobAdvertisementDto> getJobAdvertisementByActivateOrderByPostedDate(Boolean activate);
 
-	@Query("Select new com.ardaatay.hrms.entities.dtos.JobAdvertisementDto(j.id,j.companyName,j.jobTitle,j.count,j.postedDate,j.lastDate) From JobAdvertisement j where company=:company and activate=:activate")
+	@Query("Select new com.ardaatay.hrms.entities.dtos.JobAdvertisementDto(j.id,j.company,j.jobTitle,j.count,j.postedDate,j.lastDate) From JobAdvertisement j where company=:company and activate=:activate")
 	List<JobAdvertisementDto> getJobAdvertisementByCompanyAndActivate(String company, Boolean activate);
 
 	@Modifying
