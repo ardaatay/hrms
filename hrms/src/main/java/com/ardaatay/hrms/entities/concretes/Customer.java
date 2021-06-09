@@ -7,33 +7,39 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "employers")
-public class Employer extends User {
+@Table(name = "customers")
+public class Customer extends User {
 
-	@Column(name = "company_name")
+	@Column(name = "company_name", nullable = false)
 	@NotBlank
 	@NotNull
 	private String companyName;
 
-	@Column(name = "web_site")
+	@Column(name = "web_site", nullable = false)
 	@NotBlank
 	@NotNull
 	private String webSite;
 
-	@Column(name = "phone")
+	@Column(name = "phone", nullable = false)
 	@NotBlank
 	@NotNull
 	private String phone;
+	
+	@Column(name = "taxNumber", nullable = false)
+	@NotBlank
+	@NotNull
+	private String taxNumber;
 
-	public Employer() {
+	public Customer() {
 	}
 
-	public Employer(int id, String email, String passwordHash, String passwordSalt, String companyName, String webSite,
-			String phone) {
+	public Customer(int id, String email, String passwordHash, String passwordSalt, String companyName, String webSite,
+			String phone,String taxNumber) {
 		super(id, email, passwordHash, passwordSalt);
 		this.companyName = companyName;
 		this.webSite = webSite;
 		this.phone = phone;
+		this.taxNumber=taxNumber;
 	}
 
 	public String getCompanyName() {
@@ -58,5 +64,13 @@ public class Employer extends User {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getTaxNumber() {
+		return taxNumber;
+	}
+
+	public void setTaxNumber(String taxNumber) {
+		this.taxNumber = taxNumber;
 	}
 }

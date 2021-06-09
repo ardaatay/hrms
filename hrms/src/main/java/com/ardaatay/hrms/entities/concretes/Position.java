@@ -2,6 +2,7 @@ package com.ardaatay.hrms.entities.concretes;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,14 +32,14 @@ public class Position {
 	@Column(name = "position_id")
 	private int id;
 
-	@Column(name = "name")
+	@Column(name = "name", nullable = false, length = 255)
 	@NotBlank
 	@NotNull
 	private String name;
 
-	@OneToMany(mappedBy = "position")
+	@OneToMany(mappedBy = "position", cascade = CascadeType.ALL)
 	private List<SystemPersonnel> systemPersonnels;
 
-	@OneToMany(mappedBy = "position")
+	@OneToMany(mappedBy = "position", cascade = CascadeType.ALL)
 	private List<JobAdvertisement> jobAdvertisements;
 }

@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ardaatay.hrms.business.abstracts.EmployerService;
+import com.ardaatay.hrms.business.abstracts.CustomerService;
 import com.ardaatay.hrms.core.utilities.results.DataResult;
 import com.ardaatay.hrms.core.utilities.results.ErrorResult;
 import com.ardaatay.hrms.core.utilities.results.Result;
@@ -15,21 +15,21 @@ import com.ardaatay.hrms.core.utilities.results.SuccessDataResult;
 import com.ardaatay.hrms.core.utilities.results.SuccessResult;
 import com.ardaatay.hrms.core.utilities.verification.EmailVerification;
 import com.ardaatay.hrms.core.utilities.verification.Verification;
-import com.ardaatay.hrms.dataAccess.abstracts.EmployerDao;
-import com.ardaatay.hrms.entities.concretes.Employer;
+import com.ardaatay.hrms.dataAccess.abstracts.CustomerDao;
+import com.ardaatay.hrms.entities.concretes.Customer;
 
 @Service
-public class EmployerManager implements EmployerService {
+public class CustomerManager implements CustomerService {
 
-	private EmployerDao employerDao;
+	private CustomerDao employerDao;
 
 	@Autowired
-	public EmployerManager(EmployerDao employerDao) {
+	public CustomerManager(CustomerDao employerDao) {
 		this.employerDao = employerDao;
 	}
 
 	@Override
-	public Result add(Employer employer) {
+	public Result add(Customer employer) {
 		String domain = "";
 		try {
 			domain = getDomainName(employer.getWebSite());
@@ -41,7 +41,7 @@ public class EmployerManager implements EmployerService {
 			return new ErrorResult("Email adresiniz domain adresinizle aynı değil");
 		}
 
-		Employer checkEmployer = this.employerDao.getByEmail(employer.getEmail());
+		Customer checkEmployer = this.employerDao.getByEmail(employer.getEmail());
 		if (checkEmployer != null) {
 			return new ErrorResult("Bu mail adresi daha önce kayıt edilmiş");
 		}
@@ -61,8 +61,8 @@ public class EmployerManager implements EmployerService {
 	}
 
 	@Override
-	public DataResult<List<Employer>> getAll() {
-		return new SuccessDataResult<List<Employer>>(this.employerDao.findAll(), "Data Listelendi");
+	public DataResult<List<Customer>> getAll() {
+		return new SuccessDataResult<List<Customer>>(this.employerDao.findAll(), "Data Listelendi");
 	}
 
 	public static String getDomainName(String url) throws URISyntaxException {
