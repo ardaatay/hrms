@@ -80,4 +80,19 @@ public class JobAdvertisement {
 	@JoinColumn(name = "position_id")
 	@NotNull
 	private Position position;
+
+	@ManyToOne()
+	@JoinColumn(name = "job_type_id")
+	@NotNull
+	private JobType jobType;
+
+	@ManyToOne()
+	@JoinColumn(name = "work_way_id")
+	@NotNull
+	private WorkWay workWay;
+
+	@ManyToOne()
+	@JoinColumn(name = "system_personnel_id")
+	@NotNull
+	private SystemPersonnel systemPersonnel;
 }
