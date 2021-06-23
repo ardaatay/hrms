@@ -35,8 +35,8 @@ public class ResumeManager implements ResumeService {
 	}
 
 	@Override
-	public DataResult<List<Resume>> getResumeByJobSeekerId(int jobSeekerId) {
-		return new SuccessDataResult<List<Resume>>(this.resumeDao.getResumeByJobSeeker_Id(jobSeekerId),
+	public DataResult<List<Resume>> getResumesByJobSeekerId(int jobSeekerId) {
+		return new SuccessDataResult<List<Resume>>(this.resumeDao.getResumesByJobSeeker_Id(jobSeekerId),
 				"Data listelendi");
 	}
 

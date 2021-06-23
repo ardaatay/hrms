@@ -3,6 +3,7 @@ package com.ardaatay.hrms.api.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ import com.ardaatay.hrms.entities.concretes.Resume;
 
 @RestController
 @RequestMapping("/api/resumes")
+@CrossOrigin
 public class ResumesController {
 	private ResumeService resumeService;
 
@@ -35,8 +37,9 @@ public class ResumesController {
 		return this.resumeService.getResumeById(id);
 	}
 
-	@GetMapping("/getResumeByJobSeekerId")
-	public DataResult<List<Resume>> getResumeByJobSeekerId(@RequestParam int jobSeekerId) {
-		return this.resumeService.getResumeByJobSeekerId(jobSeekerId);
+	@GetMapping("/getresumesbyjobseekerid")
+	public DataResult<List<Resume>> getResumesByJobSeekerId(@RequestParam int jobSeekerId) {
+		System.out.println(jobSeekerId);
+		return this.resumeService.getResumesByJobSeekerId(jobSeekerId);
 	}
 }
