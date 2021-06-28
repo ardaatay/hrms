@@ -5,4 +5,5 @@ import com.ardaatay.hrms.entities.dtos.LanguageDto;
 
 public interface LanguageService {
 	Result add(LanguageDto languageDto);
+	Result deleteById(int id);
 }

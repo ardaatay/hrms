@@ -5,4 +5,6 @@ import com.ardaatay.hrms.entities.dtos.SchoolDto;
 
 public interface SchoolService {
 	Result add(SchoolDto schoolDto);
+
+	Result delete(int id);
 }

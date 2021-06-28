@@ -30,6 +30,12 @@ public class LanguageManager implements LanguageService {
 		return new SuccessResult("Kayıt yapıldı");
 	}
 
+	@Override
+	public Result deleteById(int id) {
+		this.languageDao.deleteById(id);
+		return new SuccessResult("Kayıt silindi");
+	}
+
 	private Language convertToEntity(LanguageDto languageDto) {
 		Language language = modelMapper.map(languageDto, Language.class);
 		return language;

@@ -30,6 +30,12 @@ public class SchoolManager implements SchoolService {
 		return new SuccessResult("Kayıt yapıldı");
 	}
 
+	@Override
+	public Result delete(int id) {
+		this.schoolDao.deleteById(id);
+		return new SuccessResult("Kayıt silindi");
+	}
+
 	private School convertToEntity(SchoolDto schoolDto) {
 		School school = modelMapper.map(schoolDto, School.class);
 		return school;
