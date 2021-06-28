@@ -19,6 +19,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +30,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "job_seeker_resumes")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "jobSeeker" })
 public class Resume {
 
 	@Id
@@ -47,20 +50,20 @@ public class Resume {
 	@Temporal(TemporalType.DATE)
 	private Date postedDate;
 
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY,optional = false)
 	@JoinColumn(name = "job_seeker_id")
 	@NotNull
 	private JobSeeker jobSeeker;
 
-	@OneToMany(mappedBy = "resume")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "resume")
 	private List<Ability> abilities;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "resume")
 	private List<Experience> experiences;
 
-	@OneToMany(mappedBy = "resume")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "resume")
 	private List<School> schools;
 
-	@OneToMany(mappedBy = "resume")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "resume")
 	private List<Language> languages;
 }

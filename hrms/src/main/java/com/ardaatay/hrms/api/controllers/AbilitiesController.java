@@ -9,29 +9,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ardaatay.hrms.business.abstracts.ExperienceService;
+import com.ardaatay.hrms.business.abstracts.AbilityService;
 import com.ardaatay.hrms.core.utilities.results.Result;
-import com.ardaatay.hrms.entities.dtos.ExperienceDto;
+import com.ardaatay.hrms.entities.dtos.AbilityDto;
 
 @RestController
-@RequestMapping("/api/experiences")
+@RequestMapping("/api/abilities")
 @CrossOrigin
-public class ExperiencesController {
+public class AbilitiesController {
 
-	private ExperienceService experienceService;
+	private AbilityService abilityService;
 
 	@Autowired
-	public ExperiencesController(ExperienceService experienceService) {
-		this.experienceService = experienceService;
+	public AbilitiesController(AbilityService abilityService) {
+		this.abilityService = abilityService;
 	}
 
 	@PostMapping("/add")
-	public Result add(@RequestBody ExperienceDto experienceDto) {
-		return this.experienceService.add(experienceDto);
+	public Result add(@RequestBody AbilityDto abilityDto) {
+		return this.abilityService.add(abilityDto);
 	}
 
 	@DeleteMapping("/delete")
-	public Result delete(@RequestParam int id) {
-		return this.experienceService.deleteById(id);
+	public Result add(@RequestParam int id) {
+		return this.abilityService.deleteById(id);
 	}
 }

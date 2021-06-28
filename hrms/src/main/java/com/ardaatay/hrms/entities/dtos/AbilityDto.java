@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExperienceDto {
+public class AbilityDto {
 	private int id;
 	private String name;
-	private String position;
-	private int startYear;
-	private int finishYear;
+	private String description;
 	private int resumeId;
 }

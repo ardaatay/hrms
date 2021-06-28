@@ -15,6 +15,7 @@ import com.ardaatay.hrms.business.abstracts.ResumeService;
 import com.ardaatay.hrms.core.utilities.results.DataResult;
 import com.ardaatay.hrms.core.utilities.results.Result;
 import com.ardaatay.hrms.entities.concretes.Resume;
+import com.ardaatay.hrms.entities.dtos.ResumeDto;
 
 @RestController
 @RequestMapping("/api/resumes")
@@ -28,8 +29,8 @@ public class ResumesController {
 	}
 
 	@PostMapping("/add")
-	public Result add(@RequestBody Resume resume) {
-		return this.resumeService.add(resume);
+	public Result add(@RequestBody ResumeDto resumeDto) {
+		return this.resumeService.add(resumeDto);
 	}
 
 	@GetMapping("/getresumebyid")
@@ -39,7 +40,6 @@ public class ResumesController {
 
 	@GetMapping("/getresumesbyjobseekerid")
 	public DataResult<List<Resume>> getResumesByJobSeekerId(@RequestParam int jobSeekerId) {
-		System.out.println(jobSeekerId);
 		return this.resumeService.getResumesByJobSeekerId(jobSeekerId);
 	}
 }

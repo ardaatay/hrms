@@ -1,7 +1,9 @@
 package com.ardaatay.hrms.business.concretes;
 
+import java.util.Date;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,19 +14,24 @@ import com.ardaatay.hrms.core.utilities.results.SuccessDataResult;
 import com.ardaatay.hrms.core.utilities.results.SuccessResult;
 import com.ardaatay.hrms.dataAccess.abstracts.ResumeDao;
 import com.ardaatay.hrms.entities.concretes.Resume;
+import com.ardaatay.hrms.entities.dtos.ResumeDto;
 
 @Service
 public class ResumeManager implements ResumeService {
 
 	private ResumeDao resumeDao;
+	private ModelMapper modelMapper;
 
 	@Autowired
-	public ResumeManager(ResumeDao resumeDao) {
+	public ResumeManager(ResumeDao resumeDao, ModelMapper modelMapper) {
 		this.resumeDao = resumeDao;
+		this.modelMapper = modelMapper;
 	}
 
 	@Override
-	public Result add(Resume resume) {
+	public Result add(ResumeDto resumeDto) {
+		Resume resume = convertToEntity(resumeDto);
+		resume.setPostedDate(new Date());
 		this.resumeDao.save(resume);
 		return new SuccessResult("Kayıt eklendi");
 	}
@@ -40,4 +47,10 @@ public class ResumeManager implements ResumeService {
 				"Data listelendi");
 	}
 
+	private Resume convertToEntity(ResumeDto resumeDto) {
+		System.out.println(resumeDto);
+		Resume resume = modelMapper.map(resumeDto, Resume.class);
+		System.out.println(resume);
+		return resume;
+	}
 }

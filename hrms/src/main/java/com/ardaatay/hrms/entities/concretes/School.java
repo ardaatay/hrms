@@ -2,6 +2,7 @@ package com.ardaatay.hrms.entities.concretes;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +25,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "resume_schools")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "resume" })
 public class School {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "school_id")
@@ -44,7 +45,7 @@ public class School {
 	@NotBlank
 	@NotNull
 	private int startYear;
-	
+
 	@Column(name = "finish_year")
 	private int finishYear;
 
@@ -53,8 +54,8 @@ public class School {
 	@NotNull
 	private Float degree;
 
-	@ManyToOne()
-	@JoinColumn(name = "resume_id")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "resume_id", nullable = false)
 	@NotNull
 	private Resume resume;
 }
