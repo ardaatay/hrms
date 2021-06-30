@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +27,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "job_advertisements")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "customer", "city", "position", "jobType", "workWay",
+		"systemPersonnel" })
 public class JobAdvertisement {
 
 	@Id
@@ -35,11 +40,6 @@ public class JobAdvertisement {
 	@NotBlank
 	@NotNull
 	private String jobTitle;
-
-	@Column(name = "company")
-	@NotBlank
-	@NotNull
-	private String company;
 
 	@Column(name = "description")
 	private String description;
@@ -54,10 +54,10 @@ public class JobAdvertisement {
 	private Date postedDate;
 
 	@Column(name = "min_salary")
-	private int minSalary;
+	private double minSalary;
 
 	@Column(name = "max_salary")
-	private int maxSalary;
+	private double maxSalary;
 
 	@Column(name = "count")
 	@NotBlank
@@ -70,6 +70,11 @@ public class JobAdvertisement {
 
 	@Column(name = "activate")
 	private Boolean activate;
+
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "customer_id", nullable = false)
+	@NotNull
+	private Customer customer;
 
 	@ManyToOne()
 	@JoinColumn(name = "city_id")

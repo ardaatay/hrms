@@ -5,9 +5,10 @@ import java.util.List;
 import com.ardaatay.hrms.core.utilities.results.DataResult;
 import com.ardaatay.hrms.core.utilities.results.Result;
 import com.ardaatay.hrms.entities.concretes.Customer;
+import com.ardaatay.hrms.entities.dtos.CustomerDto;
 
 public interface CustomerService {
-	Result add(Customer employer);
+	Result add(CustomerDto customerDto);
 	
 	Result activate(String code);
 	

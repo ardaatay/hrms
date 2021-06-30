@@ -2,6 +2,7 @@ package com.ardaatay.hrms.business.concretes;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +19,17 @@ import com.ardaatay.hrms.entities.dtos.JobAdvertisementDto;
 public class JobAdvertisementManager implements JobAdvertisementService {
 
 	private JobAdvertisementDao jobAdvertisementDao;
+	private ModelMapper modelMapper;
 
 	@Autowired
-	public JobAdvertisementManager(JobAdvertisementDao jobAdvertisementDao) {
+	public JobAdvertisementManager(JobAdvertisementDao jobAdvertisementDao, ModelMapper modelMapper) {
 		this.jobAdvertisementDao = jobAdvertisementDao;
+		this.modelMapper = modelMapper;
 	}
 
 	@Override
-	public Result add(JobAdvertisement jobAdvertisement) {
+	public Result add(JobAdvertisementDto jobAdvertisementDto) {
+		JobAdvertisement jobAdvertisement = convertToEntity(jobAdvertisementDto);
 		this.jobAdvertisementDao.save(jobAdvertisement);
 		return new SuccessResult("Kayıt yapıldı");
 	}
@@ -60,4 +64,8 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		return new SuccessResult("Pasife alındı");
 	}
 
+	private JobAdvertisement convertToEntity(JobAdvertisementDto jobAdvertisementDto) {
+		JobAdvertisement jobAdvertisement = modelMapper.map(jobAdvertisementDto, JobAdvertisement.class);
+		return jobAdvertisement;
+	}
 }

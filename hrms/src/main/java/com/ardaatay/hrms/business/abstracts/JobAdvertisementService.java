@@ -8,7 +8,7 @@ import com.ardaatay.hrms.entities.concretes.JobAdvertisement;
 import com.ardaatay.hrms.entities.dtos.JobAdvertisementDto;
 
 public interface JobAdvertisementService {
-	Result add(JobAdvertisement jobAdvertisement);
+	Result add(JobAdvertisementDto jobAdvertisementDto);
 
 	DataResult<List<JobAdvertisement>> getAll();
 

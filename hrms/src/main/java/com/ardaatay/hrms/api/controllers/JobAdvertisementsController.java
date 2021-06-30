@@ -3,6 +3,7 @@ package com.ardaatay.hrms.api.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import com.ardaatay.hrms.entities.dtos.JobAdvertisementDto;
 
 @RestController
 @RequestMapping(name = "/api/jobadvertisements")
+@CrossOrigin
 public class JobAdvertisementsController {
 
 	private JobAdvertisementService jobAdvertisementService;
@@ -28,8 +30,8 @@ public class JobAdvertisementsController {
 	}
 
 	@PostMapping("/add")
-	public Result add(@RequestBody JobAdvertisement jobAdvertisement) {
-		return this.jobAdvertisementService.add(jobAdvertisement);
+	public Result add(@RequestBody JobAdvertisementDto jobAdvertisementDto) {
+		return this.jobAdvertisementService.add(jobAdvertisementDto);
 	}
 
 	@GetMapping("/getall")
@@ -44,12 +46,14 @@ public class JobAdvertisementsController {
 
 	@GetMapping("/getbyactivateorderbyposteddate")
 	public DataResult<List<JobAdvertisementDto>> getJobAdvertisementByActivateOrderByPostedDate(
+
 			@RequestParam Boolean activate) {
 		return this.jobAdvertisementService.getJobAdvertisementByActivateOrderByPostedDate(activate);
 	}
 
 	@GetMapping("/getbycompanyandactivate")
 	public DataResult<List<JobAdvertisementDto>> getJobAdvertisementByCompanyAndActivate(@RequestParam String company,
+
 			@RequestParam Boolean activate) {
 		return this.jobAdvertisementService.getJobAdvertisementByCompanyAndActivate(company, activate);
 	}

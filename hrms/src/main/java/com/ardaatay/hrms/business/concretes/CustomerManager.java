@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,36 +18,45 @@ import com.ardaatay.hrms.core.utilities.verification.EmailVerification;
 import com.ardaatay.hrms.core.utilities.verification.Verification;
 import com.ardaatay.hrms.dataAccess.abstracts.CustomerDao;
 import com.ardaatay.hrms.entities.concretes.Customer;
+import com.ardaatay.hrms.entities.dtos.CustomerDto;
 
 @Service
 public class CustomerManager implements CustomerService {
 
-	private CustomerDao employerDao;
+	private CustomerDao customerDao;
+	private ModelMapper modelMapper;
 
 	@Autowired
-	public CustomerManager(CustomerDao employerDao) {
-		this.employerDao = employerDao;
+	public CustomerManager(CustomerDao customerDao, ModelMapper modelMapper) {
+		this.customerDao = customerDao;
+		this.modelMapper = modelMapper;
 	}
 
 	@Override
-	public Result add(Customer employer) {
+	public Result add(CustomerDto customerDto) {
+
+		Customer customer = convertToEntity(customerDto);
+		customer.setPasswordHash(customerDto.getPassword());
+		customer.setPasswordSalt("ardaatay");
+		customer.setActivate(false);
+
 		String domain = "";
 		try {
-			domain = getDomainName(employer.getWebSite());
+			domain = getDomainName(customer.getWebSite());
 		} catch (URISyntaxException e) {
 			return new ErrorResult("Websitesi adresi geçerli değil");
 		}
 
-		if (!employer.getEmail().contains(domain)) {
+		if (!customer.getEmail().contains(domain)) {
 			return new ErrorResult("Email adresiniz domain adresinizle aynı değil");
 		}
 
-		Customer checkEmployer = this.employerDao.getByEmail(employer.getEmail());
+		Customer checkEmployer = this.customerDao.getByEmail(customer.getEmail());
 		if (checkEmployer != null) {
 			return new ErrorResult("Bu mail adresi daha önce kayıt edilmiş");
 		}
 
-		this.employerDao.save(employer);
+		this.customerDao.save(customer);
 		return new SuccessResult("Çalışan eklendi.");
 	}
 
@@ -62,13 +72,18 @@ public class CustomerManager implements CustomerService {
 
 	@Override
 	public DataResult<List<Customer>> getAll() {
-		return new SuccessDataResult<List<Customer>>(this.employerDao.findAll(), "Data Listelendi");
+		return new SuccessDataResult<List<Customer>>(this.customerDao.findAll(), "Data Listelendi");
 	}
 
 	public static String getDomainName(String url) throws URISyntaxException {
 		URI uri = new URI(url);
-		String domain = uri.getHost();
+		String domain = uri.toString();
 		return domain.startsWith("www.") ? domain.substring(4) : domain;
+	}
+
+	private Customer convertToEntity(CustomerDto customerDto) {
+		Customer customer = modelMapper.map(customerDto, Customer.class);
+		return customer;
 	}
 
 }
