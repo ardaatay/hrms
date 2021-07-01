@@ -71,8 +71,13 @@ public class CustomerManager implements CustomerService {
 	}
 
 	@Override
+	public DataResult<Customer> getById(int id) {
+		return new SuccessDataResult<Customer>(this.customerDao.getOne(id), "Data listelendi");
+	}
+
+	@Override
 	public DataResult<List<Customer>> getAll() {
-		return new SuccessDataResult<List<Customer>>(this.customerDao.findAll(), "Data Listelendi");
+		return new SuccessDataResult<List<Customer>>(this.customerDao.findAll(), "Data listelendi");
 	}
 
 	public static String getDomainName(String url) throws URISyntaxException {

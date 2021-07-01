@@ -37,9 +37,7 @@ public class ExperienceManager implements ExperienceService {
 	}
 
 	private Experience convertToEntity(ExperienceDto experienceDto) {
-		System.out.println(experienceDto);
 		Experience experience = modelMapper.map(experienceDto, Experience.class);
-		System.out.println(experience);
 		return experience;
 	}
 }

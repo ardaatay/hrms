@@ -76,28 +76,28 @@ public class JobAdvertisement {
 	@NotNull
 	private Customer customer;
 
-	@ManyToOne()
-	@JoinColumn(name = "city_id")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "city_id", nullable = false)
 	@NotNull
 	private City city;
 
-	@ManyToOne()
-	@JoinColumn(name = "position_id")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "position_id", nullable = false)
 	@NotNull
 	private Position position;
 
-	@ManyToOne()
-	@JoinColumn(name = "job_type_id")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "job_type_id", nullable = false)
 	@NotNull
 	private JobType jobType;
 
-	@ManyToOne()
-	@JoinColumn(name = "work_way_id")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "work_way_id", nullable = false)
 	@NotNull
 	private WorkWay workWay;
 
-	@ManyToOne()
-	@JoinColumn(name = "system_personnel_id")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "system_personnel_id", nullable = false)
 	@NotNull
 	private SystemPersonnel systemPersonnel;
 }

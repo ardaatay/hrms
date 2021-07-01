@@ -2,8 +2,10 @@ package com.ardaatay.hrms.entities.concretes;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,6 +31,6 @@ public class JobType {
 	@Column(name = "name")
 	private String name;
 
-	@OneToMany(mappedBy = "jobType")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "jobType")
 	private List<JobAdvertisement> jobAdvertisements;
 }

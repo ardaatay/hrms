@@ -48,9 +48,7 @@ public class ResumeManager implements ResumeService {
 	}
 
 	private Resume convertToEntity(ResumeDto resumeDto) {
-		System.out.println(resumeDto);
 		Resume resume = modelMapper.map(resumeDto, Resume.class);
-		System.out.println(resume);
 		return resume;
 	}
 }

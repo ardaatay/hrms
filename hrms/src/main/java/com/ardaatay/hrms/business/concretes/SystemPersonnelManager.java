@@ -30,8 +30,12 @@ public class SystemPersonnelManager implements SystemPersonnelService {
 	}
 
 	@Override
+	public DataResult<SystemPersonnel> getById(int id) {
+		return new SuccessDataResult<SystemPersonnel>(this.systemPersonnelDao.getOne(id), "Data listelendi");
+	}
+
+	@Override
 	public DataResult<List<SystemPersonnel>> getAll() {
 		return new SuccessDataResult<List<SystemPersonnel>>(this.systemPersonnelDao.findAll(), "Data Listelendi");
 	}
-
 }

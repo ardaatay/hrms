@@ -9,8 +9,10 @@ import com.ardaatay.hrms.entities.dtos.CustomerDto;
 
 public interface CustomerService {
 	Result add(CustomerDto customerDto);
-	
+
 	Result activate(String code);
-	
+
+	DataResult<Customer> getById(int id);
+
 	DataResult<List<Customer>> getAll();
 }

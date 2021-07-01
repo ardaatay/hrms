@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,9 +38,9 @@ public class Position {
 	@NotNull
 	private String name;
 
-	@OneToMany(mappedBy = "position", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "position")
 	private List<SystemPersonnel> systemPersonnels;
 
-	@OneToMany(mappedBy = "position", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "position")
 	private List<JobAdvertisement> jobAdvertisements;
 }

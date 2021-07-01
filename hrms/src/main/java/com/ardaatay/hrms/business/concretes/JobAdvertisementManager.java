@@ -1,35 +1,55 @@
 package com.ardaatay.hrms.business.concretes;
 
+import java.util.Date;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ardaatay.hrms.business.abstracts.CustomerService;
 import com.ardaatay.hrms.business.abstracts.JobAdvertisementService;
+import com.ardaatay.hrms.business.abstracts.SystemPersonnelService;
 import com.ardaatay.hrms.core.utilities.results.DataResult;
 import com.ardaatay.hrms.core.utilities.results.Result;
 import com.ardaatay.hrms.core.utilities.results.SuccessDataResult;
 import com.ardaatay.hrms.core.utilities.results.SuccessResult;
 import com.ardaatay.hrms.dataAccess.abstracts.JobAdvertisementDao;
+import com.ardaatay.hrms.entities.concretes.Customer;
 import com.ardaatay.hrms.entities.concretes.JobAdvertisement;
+import com.ardaatay.hrms.entities.concretes.SystemPersonnel;
 import com.ardaatay.hrms.entities.dtos.JobAdvertisementDto;
 
 @Service
 public class JobAdvertisementManager implements JobAdvertisementService {
 
 	private JobAdvertisementDao jobAdvertisementDao;
+	private CustomerService customerService;
+	private SystemPersonnelService systemPersonnelService;
 	private ModelMapper modelMapper;
 
 	@Autowired
-	public JobAdvertisementManager(JobAdvertisementDao jobAdvertisementDao, ModelMapper modelMapper) {
+	public JobAdvertisementManager(JobAdvertisementDao jobAdvertisementDao, CustomerService customerService,
+			SystemPersonnelService systemPersonnelService, ModelMapper modelMapper) {
 		this.jobAdvertisementDao = jobAdvertisementDao;
+		this.customerService = customerService;
+		this.systemPersonnelService = systemPersonnelService;
 		this.modelMapper = modelMapper;
 	}
 
 	@Override
 	public Result add(JobAdvertisementDto jobAdvertisementDto) {
 		JobAdvertisement jobAdvertisement = convertToEntity(jobAdvertisementDto);
+
+		Customer customer = this.customerService.getById(jobAdvertisementDto.getCustomerId()).getData();
+		jobAdvertisement.setCustomer(customer);
+
+		SystemPersonnel systemPersonnel = this.systemPersonnelService.getById(1).getData();
+		jobAdvertisement.setSystemPersonnel(systemPersonnel);
+
+		jobAdvertisement.setActivate(false);
+		jobAdvertisement.setPostedDate(new Date());
+
 		this.jobAdvertisementDao.save(jobAdvertisement);
 		return new SuccessResult("Kayıt yapıldı");
 	}

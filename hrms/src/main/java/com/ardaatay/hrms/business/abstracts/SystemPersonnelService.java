@@ -8,6 +8,8 @@ import com.ardaatay.hrms.entities.concretes.SystemPersonnel;
 
 public interface SystemPersonnelService {
 	Result add(SystemPersonnel systemPersonnel);
+	
+	DataResult<SystemPersonnel> getById(int id);
 
 	DataResult<List<SystemPersonnel>> getAll();
 }

@@ -18,7 +18,7 @@ import com.ardaatay.hrms.entities.concretes.JobAdvertisement;
 import com.ardaatay.hrms.entities.dtos.JobAdvertisementDto;
 
 @RestController
-@RequestMapping(name = "/api/jobadvertisements")
+@RequestMapping("/api/jobadvertisements")
 @CrossOrigin
 public class JobAdvertisementsController {
 
